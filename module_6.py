@@ -35,14 +35,23 @@ class Record:
 
 
     def edit_phone(self, old_phone, new_phone):
-        p = self.find_phone(old_phone)
-        if p:
-            # в коді є нюанс: новий номер завжди записуються в кінці,
-            # а в старому коді записує в теж саме місце де був старий
+        # варіант з add_phone, remove_phone, find_phone
+        if self.find_phone(old_phone):
+            # але в середені remove_phone також викликається find_phone
             self.remove_phone(old_phone)
             self.add_phone(new_phone)
         else:
             raise ValueError("Phone not found")
+
+        # варіант з add_phone, find_phone
+        # p = self.find_phone(old_phone)
+        # if p:
+        #     self.phones.remove(p)
+        #     self.add_phone(new_phone)
+        # else:
+        #     raise ValueError("Phone not found")
+
+        # перший варіант де новий номер залишиться там де був старий, а не в кінці
         # for i, p in enumerate(self.phones):
         #     if p.value == old_phone:
         #         self.phones[i] = Phone(new_phone)
