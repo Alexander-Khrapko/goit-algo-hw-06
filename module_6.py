@@ -26,17 +26,28 @@ class Record:
         self.phones.append(Phone(phone))
 
     def remove_phone(self, phone):
-        for p in self.phones:
-            if p.value == phone:
-                self.phones.remove(p)
-                break
+        p = self.find_phone(phone)
+        if p:
+            self.phones.remove(p)
+        # if not p:
+        #     raise ValueError("Phone number not found")
+        # self.phones.remove(p)
+
 
     def edit_phone(self, old_phone, new_phone):
-        for i, p in enumerate(self.phones):
-            if p.value == old_phone:
-                self.phones[i] = Phone(new_phone)
-                return True
-        return False
+        p = self.find_phone(old_phone)
+        if p:
+            # в коді є нюанс: новий номер завжди записуються в кінці,
+            # а в старому коді записує в теж саме місце де був старий
+            self.phones.remove(p)
+            self.add_phone(new_phone)
+        else:
+            raise ValueError("Phone not found")
+        # for i, p in enumerate(self.phones):
+        #     if p.value == old_phone:
+        #         self.phones[i] = Phone(new_phone)
+        #         return True
+        # raise ValueError("Phone number not found")
 
     def find_phone(self, phone):
         for p in self.phones:
@@ -48,7 +59,7 @@ class Record:
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
 
-class AdressBook(UserDict):
+class AddressBook(UserDict):
     def __init__(self):
         super().__init__()
 
