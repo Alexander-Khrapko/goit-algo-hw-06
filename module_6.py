@@ -39,7 +39,7 @@ class Record:
         if p:
             # в коді є нюанс: новий номер завжди записуються в кінці,
             # а в старому коді записує в теж саме місце де був старий
-            self.phones.remove(p)
+            self.remove_phone(old_phone)
             self.add_phone(new_phone)
         else:
             raise ValueError("Phone not found")
