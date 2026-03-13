@@ -38,8 +38,8 @@ class Record:
         # варіант з add_phone, remove_phone, find_phone
         if self.find_phone(old_phone):
             # але в середені remove_phone також викликається find_phone
-            self.remove_phone(old_phone)
             self.add_phone(new_phone)
+            self.remove_phone(old_phone)
         else:
             raise ValueError("Phone not found")
 
